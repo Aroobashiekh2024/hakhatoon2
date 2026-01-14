@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <div class="container">
+  <!-- <div class="container">
     <div class="card">
       <h2 id="title">Sign Up</h2>
 
@@ -22,8 +22,53 @@
         <span id="toggleBtn">Login</span>
       </p>
     </div>
+  </div> -->
+
+
+
+
+  <div class="container">
+
+  <!-- Signup/Login Form -->
+  <div id="auth-container">
+    <h2 id="title">Sign Up</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="submitBtn">Create Account</button>
+    <p><span id="toggleBtn" style="cursor:pointer;color:#2ecc71;">Login</span></p>
   </div>
+
+  <!-- Blog Dashboard (hidden by default) -->
+  <div id="dashboard-container" style="display:none;">
+
+    <h2>Your Blog Dashboard</h2>
+
+    <!-- Blog Form -->
+    <div class="blog-form">
+      <input type="text" id="blog-name" placeholder="Your Name">
+      <textarea id="blog-desc" placeholder="Blog Description"></textarea>
+      <textarea id="blog-post" placeholder="Write your blog here..."></textarea>
+      <button id="submit-blog-btn">Add Blog</button>
+      <button id="cancel-edit-btn" style="display:none;">Cancel Edit</button>
+    </div>
+
+    <!-- Blog List -->
+    <div class="blog-list">
+      <h3>Your Blogs</h3>
+      <ul id="blogs"></ul>
+    </div>
+
+  </div>
+
+</div>
+
+
+
 <script src="./firebase.config.js" type="module"></script>
   <script type="module" src="./app.js"></script>
 </body>
 </html>
+
+
+
+

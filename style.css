@@ -80,3 +80,84 @@ button:hover {
   cursor: pointer;
   font-weight: bold;
 }
+/* Blog Management Styles */
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+input, textarea, button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+input, textarea {
+  background: #222;
+  color: #fff;
+}
+
+button {
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+#submitBtn, #submit-blog-btn {
+  background: #2ecc71;
+  color: #111;
+}
+
+#cancel-edit-btn {
+  background: #e1c699;
+  color: #111;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.blog-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.blog-list li {
+  background: #222;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blog-list button.edit-btn {
+  background: #f1c40f;
+  color: #111;
+  margin-left: 5px;
+}
+
+.blog-list button.delete-btn {
+  background: #2ecc71;
+  color: #111;
+  margin-left: 5px;
+}
