@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login & Signup | Firebase</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <h2 id="title">Sign Up</h2>
+
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+
+      <button id="submitBtn">Create Account</button>
+
+      <p class="toggle">
+        Already have an account?
+        <span id="toggleBtn">Login</span>
+      </p>
+    </div>
+  </div>
+<script src="./firebase.config.js" type="module"></script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
