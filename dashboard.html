@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAZresume Dashboard</title>
+
+
+  
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+
+      
+    }
+
+
+    
+    h1 {
+      color: #6a11cb;
+    }
+    .resume-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 20px;
+    }
+    .resume-card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(106,17,203,0.3);
+    }
+    .resume-card h3 {
+      margin: 0 0 10px 0;
+      color: #6a11cb;
+    }
+    .resume-card p {
+      margin: 5px 0;
+      color: #333;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Saved Resumes</h1>
+  <div id="resumeList" class="resume-list"></div>
+  <!-- <button type="button" id="previewButton" style="margin-top:15px;">View Full Resume</button> -->
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { firebaseConfig } from "./firebase.config.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const resumeListDiv = document.getElementById('resumeList');
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        resumeListDiv.innerHTML = "<p>Please log in to view your resumes.</p>";
+        return;
+      }
+
+      const q = query(collection(db, "resumes"), where("userId", "==", user.uid));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        resumeListDiv.innerHTML = "<p>No resumes found. Create some!</p>";
+        return;
+      }
+
+      querySnapshot.forEach(doc => {
+        const data = doc.data();
+        const card = document.createElement('div');
+        card.classList.add('resume-card');
+        card.innerHTML = `
+          <h3>${data.name}</h3>
+          <p><strong>Email:</strong> ${data.email}</p>
+          <p><strong>Phone:</strong> ${data.phone}</p>
+          <p><strong>Summary:</strong> ${data.summary.substring(0, 80)}...</p>
+        `;
+        resumeListDiv.appendChild(card);
+      });
+    });
+
+
+
+    <!-- Resume Modal -->
+<div id="resumeModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:10000; overflow:auto;">
+  <div style="background:#fff; max-width:600px; margin:50px auto; padding:20px; border-radius:10px; position:relative;">
+    <button id="closeModal" style="position:absolute; top:10px; right:10px; cursor:pointer; font-size:18px; border:none; background:none;">✖</button>
+    <h2 id="modalName">Name</h2>
+    <p id="modalContact">Email | Phone | Address</p>
+    <h3>Profile Summary</h3>
+    <p id="modalSummary"></p>
+    <h3>Skills</h3>
+    <p id="modalSkills"></p>
+    <h3>Projects</h3>
+    <p id="modalProjects"></p>
+  </div>
+</div>
+
+  </script>
+</body>
+</html>

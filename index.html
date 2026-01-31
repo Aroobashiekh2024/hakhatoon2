@@ -8,7 +8,66 @@
 </head>
 <body>
 
-  <!-- <div class="container">
+
+
+
+
+
+
+
+
+<style>
+  .header {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+  }
+  .btn {
+    background: white;
+    color: #6a11cb;
+    /* padding: 10px 20px; */
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .btn:hover {
+    background: #6a11cb;
+    color: white;
+  }
+</style>
+
+
+<!-- Navbar/Header -->
+<nav style="position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(90deg, #7b1fa2, #a566ff); display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 9999; margin-bottom: 30em;" >
+  <div style="color: white; font-weight: bold; font-size: 24px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    RAZresume
+  </div>
+  <button  class =" buttond"onclick="location.href='dashboard.html'" style="background: white; color: #7b1fa2; border: none; padding: 8px; border-radius: 20px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 6px rgba(123,31,162,0.5); transition: background 0.3s ease;">
+    Dashboard
+  </button>
+</nav>
+
+<!-- Add some top padding to body so content not hide behind navbar -->
+<style>
+  body {
+    padding-top: 60px; /* adjust according to navbar height */
+  }
+</style>
+
+
+<!-- 
+  <div class="container">
     <div class="card">
       <h2 id="title">Sign Up</h2>
 
@@ -27,6 +86,7 @@
 
 
 
+
   <div class="container">
 
   <!-- Signup/Login Form -->
@@ -35,7 +95,7 @@
     <input type="email" id="email" placeholder="Email">
     <input type="password" id="password" placeholder="Password">
     <button id="submitBtn">Create Account</button>
-    <p><span id="toggleBtn" style="cursor:pointer;color:#2ecc71;">Login</span></p>
+    <p><span id="toggleBtn" style="cursor:pointer;color:#9e89eb97;">Login</span></p>
   </div>
 
   <!-- Blog Dashboard (hidden by default) -->
@@ -44,25 +104,77 @@
     <h2>Your Blog Dashboard</h2>
 
     <!-- Blog Form -->
-    <div class="blog-form">
-      <input type="text" id="blog-name" placeholder="Your Name">
-      <textarea id="blog-desc" placeholder="Blog Description"></textarea>
-      <textarea id="blog-post" placeholder="Write your blog here..."></textarea>
-      <button id="submit-blog-btn">Add Blog</button>
-      <button id="cancel-edit-btn" style="display:none;">Cancel Edit</button>
-    </div>
+   <div class="dashboard-container">
+  <h1>Your Resumes</h1>
+  <button id="logoutBtn">Logout</button>
 
-    <!-- Blog List -->
-    <div class="blog-list">
-      <h3>Your Blogs</h3>
-      <ul id="blogs"></ul>
-    </div>
+  <!-- Resume Form -->
+  <!-- <div class="resume-form card">
+    <h2>Create / Edit Resume</h2>
+    <input type="text" id="fullName" placeholder="Full Name">
+    <input type="text" id="emailResume" placeholder="Email">
+    <input type="text" id="phone" placeholder="Phone">
+    <input type="text" id="education" placeholder="Education">
+    <input type="text" id="experience" placeholder="Work Experience">
+    <input type="text" id="skills" placeholder="Skills (comma separated)">
+    <input type="text" id="projects" placeholder="Projects / Certifications">
+    <input type="text" id="languages" placeholder="Languages">
+    <textarea id="summary" placeholder="Profile Summary"></textarea>
+    <button id="saveResumeBtn">Save Resume</button>
+  </div> -->
+
+
+
+  <div class="container" style="margin-top: 30em;">
+ <h1>Resume Builder</h1>
+ <div class="builder" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;">
+ <!-- Form -->
+ <div class="form-container">
+ <h2>Enter Your Details</h2>
+ <input type="text" id="name" placeholder="Full Name">
+ <input type="email" id="email" placeholder="Email">
+ <input type="text" id="phone" placeholder="Phone">
+ <input type="text" id="address" placeholder="Address">
+ <textarea id="summary" placeholder="Profile Summary"></textarea>
+ <input type="text" id="skills" placeholder="Skills (comma separated)">
+ <input type="text" id="projects" placeholder="Projects (comma separated)">
+ <button id="saveResumeFirestoreBtn">Save Resume to Cloud</button>
+ <button id="downloadBtn">Download PDF</button>
+ </div>
+
+ <!-- Resume Preview -->
+ <div class="preview-container" style="background: linear-gradient(135deg, #667eea 0%, #9a70c5 100%); color: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+  <div style="text-align: center; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 20px; margin-bottom: 20px;">
+    <h2 id="previewName" style="margin: 0; font-size: 28px;">Your Name</h2>
+    <p id="previewContact" style="margin: 8px 0 0 0; font-size: 14px; opacity: 0.9;">Email | Phone | Address</p>
+  </div>
+  
+  <div style="margin-bottom: 20px;">
+    <h3 style="margin: 0 0 8px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Profile Summary</h3>
+    <p id="previewSummary" style="margin: 0; font-size: 14px; line-height: 1.6; opacity: 0.95;">Summary will appear here.</p>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <h3 style="margin: 0 0 8px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Skills</h3>
+    <p id="previewSkills" style="margin: 0; font-size: 14px; line-height: 1.6; opacity: 0.95;">Skills will appear here.</p>
+  </div>
+
+  <div>
+    <h3 style="margin: 0 0 8px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Projects</h3>
+    <p id="previewProjects" style="margin: 0; font-size: 14px; line-height: 1.6; opacity: 0.95;">Projects will appear here.</p>
+  </div>
+ </div>
+</div>
+
+ 
 
   </div>
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<!-- <button id="saveResumeFirestoreBtn">Save Resume to Cloud</button> -->
 
 <script src="./firebase.config.js" type="module"></script>
   <script type="module" src="./app.js"></script>
